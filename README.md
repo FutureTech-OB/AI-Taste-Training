@@ -10,7 +10,6 @@ The open-source-ready part of the codebase is primarily:
 - `src/practices/article`
 - `scripts/sft`
 - `scripts/validation`
-- `test`
 
 The framework is built around four layers:
 
@@ -20,8 +19,6 @@ The framework is built around four layers:
    Implements the article-specific prompt registry, data transformation, filtering, validation CLI, SFT CLI, and document models.
 3. `scripts`
    Contains runnable shell entrypoints for validation and training workflows.
-4. `test`
-   Contains integration-style tests and utility probes for inference, training, data handling, and provider-specific behavior.
 
 ## Main Entry Points
 
@@ -116,6 +113,8 @@ The repository now keeps publishable templates in:
 
 - `assets_example/model.toml.example`
 - `assets_example/database.toml.example`
+- `assets_example/ds_config_zero2.json`
+- `assets_example/ds_config_zero3.json`
 
 This layout is intentional:
 
@@ -127,61 +126,23 @@ Recommended local setup for users:
 
 1. Copy `assets_example/model.toml.example` to `assets/model.toml`
 2. Copy `assets_example/database.toml.example` to `assets/database.toml`
-3. Fill in local credentials and private paths only in those ignored local files
+3. Copy one of the DeepSpeed templates from `assets_example/` if you want to customize local training config
+4. Fill in local credentials and private paths only in those ignored local files
 
 Environment variables are still supported by some Python utilities and tests, but the shell training/validation entrypoints now read database settings from `assets/database.toml`.
 
-## Tests
-
-The `test` directory is mixed:
-
-- some files are reusable framework tests
-- some are local probes or one-off provider checks
-- some currently assume private credentials or private infrastructure
-
-Before publishing, keep only tests that:
-
-- do not require private databases
-- do not embed real API keys
-- do not depend on local absolute paths
-
-## Release Checklist
-
-Before open-sourcing this framework:
-
-1. Remove real API keys from `assets/model.toml` and `assets/model_old.toml`.
-2. Remove real database credentials from `assets/database.toml`.
-3. Replace hard-coded MongoDB connection strings in shell scripts with environment-variable-based wiring.
-4. Remove hard-coded secrets from tests and temporary scripts.
-5. Remove local absolute paths such as `/workspace/...` and `C:\\Users\\...` where they are not required.
-6. Keep only public-safe examples in `scripts` and `test`.
-
 ## Recommended Minimal Public Layout
 
-If publishing a clean version, keep:
+This public repository keeps:
 
 - `src/core`
 - `src/practices/article`
-- selected `scripts/sft`
-- selected `scripts/validation`
-- sanitized `test`
+- `scripts/sft`
+- `scripts/validation`
+- `scripts/common`
+- `scripts/merge`
 - `assets_example/*.toml.example`
+- `assets_example/ds_config_zero2.json`
+- `assets_example/ds_config_zero3.json`
 
-Archive or remove:
-
-- private data-processing scripts
-- internal migration scripts
-- scripts with hard-coded production DB settings
-- tests containing real secrets or private hosts
-
-## Known Security Risks In Current Repo
-
-Current repository state is not safe to publish as-is if private local config files are copied into the release package. The tracked code is now structured so that public examples can live outside `assets/`, but you should still verify that no real local config files are bundled.
-
-- real API keys in `assets/model.toml`
-- real API keys in `assets/model_old.toml`
-- real MongoDB credentials in `assets/database.toml`
-- hard-coded MongoDB connection strings in multiple shell scripts
-- hard-coded credentials in some test files
-
-Sanitize those first, then publish.
+Users should provide their own local `assets/` directory and credentials outside version control.
