@@ -4,15 +4,11 @@ This repository contains a reusable training and validation framework for resear
 
 ## Open Resources
 
-Public model weights and training datasets are collected here:
-
-- Hugging Face collection: `https://huggingface.co/collections/K1mG0ng/ai-taste-scientific`
-
-Use that collection as the primary entry point for downloading open model weights and training data associated with this repository.
-
-OpenAI fine-tuned models used in this project are access-based API models rather than open weights. They can be referenced by model ID in your local config, but they are not redistributed through this repository or the Hugging Face collection.
-
-For open release and reproducibility, the preferred public data format is JSONL. The codebase still supports MongoDB-backed loading for internal or local deployment workflows, but public dataset distribution is intended to happen through JSONL exports rather than direct database access.
+- Hugging Face collection for open model weights and training data:
+  `https://huggingface.co/collections/K1mG0ng/ai-taste-scientific`
+- OpenAI fine-tuned models used in this project are access-only API models, not open weights.
+- Because the data files are too large for direct repository distribution, reproducibility should start by downloading the corresponding JSONL files from the Hugging Face collection.
+- Public data release is centered on JSONL. MongoDB support remains available for internal or local deployment workflows.
 
 ## Scope
 
@@ -44,11 +40,14 @@ python -m src.practices.article.validation \
   --provider <provider_name> \
   --prompt <prompt_name> \
   --entry rq_with_context \
-  --data_source mongodb \
+  --data_source <mongodb|jsonl> \
   --db_name <db_name> \
+  --data_file /path/to/validate.jsonl \
   --split validate \
   --subjects ECONOMICS SOCIOLOGY
 ```
+
+Use `jsonl` for public validation pipelines and `mongodb` for internal or local database-backed workflows.
 
 Useful shell wrappers:
 
@@ -75,7 +74,7 @@ python -m src.practices.article.sft \
   --output_dir ./finetune/run_name
 ```
 
-Use `mongodb` for internal or local database-backed workflows, and prefer `jsonl` for public or portable training data pipelines.
+Use `jsonl` for public or portable training data pipelines, and `mongodb` for internal or local database-backed workflows.
 
 Useful shell wrappers:
 
