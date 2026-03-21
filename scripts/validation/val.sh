@@ -9,7 +9,7 @@ source "${REPO_ROOT}/scripts/common/load_db_config.sh"
 
 # 定义变量
 PROMPT="social_science_rqcontext"
-SUBJECT="SOCIOLOGY"
+SUBJECT="ECONOMICS"
 # 支持多个模型：空格分隔，如 MODELS="moonshotai/kimi-k2.5 openai/gpt-4o"
 # 若传第 1 个参数则覆盖此处列表，如 ./val.sh "model1 model2" 或 ./val.sh "model1"
 MODELS="google/gemini-3.1-pro-preview"
@@ -19,8 +19,8 @@ TEMPERATURE="${2:-1.0}"  # 可选：第2个参数传 temperature
 MAX_CONCURRENT="${3:-15}"  # 可选：第3个参数传最大并发（默认 1，避免 429）
 
 # 数据源配置
-DATA_SOURCE="mongodb"  # 或 "mongodb"
-JSONL_PATH="C:\\Users\\45391\\codes\\RQ\\reports\\data\\model_predictions\\120_frontier.jsonl"  # Windows 路径格式
+DATA_SOURCE="jsonl"
+JSONL_PATH="./data/eco_200_bench.jsonl"
 DB_NAME="RItest"  # MongoDB 模式时使用
 TYPES=""  # 文章类型过滤（留空则不过滤，多个类型空格分隔如 "study review"）
 # MongoDB 连接字符串（可选，如未提供则使用默认连接）

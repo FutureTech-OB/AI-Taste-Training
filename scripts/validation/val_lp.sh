@@ -19,8 +19,8 @@ PROVIDER="openai.official"
 TEMPERATURE="${2:-0.0}"
 MAX_CONCURRENT="${3:-20}"
 
-DATA_SOURCE="mongodb"
-JSONL_PATH="./reports/data/model_predictions/new_sft/120_gpt_crq.jsonl"
+DATA_SOURCE="jsonl"
+JSONL_PATH="./data/eco_200_bench.jsonl"
 DB_NAME="RItest"
 TYPES=""
 load_db_config "${REPO_ROOT}" "${DB_NAME}" || exit 1

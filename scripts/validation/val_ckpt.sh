@@ -32,7 +32,7 @@ NODE_RANK=0            # Node rank
 DIST_INIT_ADDR=""      # Distributed init address (e.g., "localhost:29500")
 
 # 定义变量
-PROMPT="ob_rl"
+PROMPT="ob_rqcontext"
 SUBJECT="ob"
 BASE_MODEL="qwen3-32b"
 # 运行验证时使用的 provider（与 val.sh 一致：显式传 --provider）
@@ -50,7 +50,7 @@ AVG_N="8"                # 留空则由 Python 自动推断（thinking 模式默
 
 # 数据源配置
 DATA_SOURCE="jsonl"  # 或 "jsonl"
-JSONL_PATH="/workspace/gongziqin/228/RQ/assets/unknown/120_RL.jsonl"
+JSONL_PATH="./data/ob_120_bench.jsonl"
 DB_NAME="RQ0"  # MongoDB 模式时使用
 TYPES=""
 # MongoDB 连接字符串（可选，如未提供则使用默认连接）

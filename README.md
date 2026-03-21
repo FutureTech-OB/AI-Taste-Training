@@ -28,6 +28,13 @@ The framework is built around four layers:
 3. `scripts`
    Contains runnable shell entrypoints for validation and training workflows.
 
+## Prompt Presets
+
+- `ob_rqcontext`: the default four-tier prompt for OB and management-style article ranking.
+- `social_science_rqcontext`: the broader four-tier prompt for economics, sociology, and pooled social-science ranking.
+
+Both prompts map to the same public label set: `Exceptional`, `Strong`, `Fair`, and `Limited`.
+
 ## Main Entry Points
 
 ### Validation
@@ -40,14 +47,13 @@ python -m src.practices.article.validation \
   --provider <provider_name> \
   --prompt <prompt_name> \
   --entry rq_with_context \
-  --data_source <mongodb|jsonl> \
-  --db_name <db_name> \
-  --data_file /path/to/validate.jsonl \
+  --data_source <jsonl|mongodb> \
+  --jsonl_path /path/to/validate.jsonl \
   --split validate \
   --subjects ECONOMICS SOCIOLOGY
 ```
 
-Use `jsonl` for public validation pipelines and `mongodb` for internal or local database-backed workflows.
+For public reproduction, download the benchmark JSONL from the Hugging Face collection and run validation in `jsonl` mode. Keep `mongodb` only for internal or local database-backed workflows.
 
 Useful shell wrappers:
 
@@ -62,9 +68,8 @@ Run SFT through:
 ```bash
 python -m src.practices.article.sft \
   --trainer deepspeed \
-  --data_source <mongodb|jsonl> \
-  --db_name <db_name> \
-  --data_file /path/to/train.jsonl \
+  --data_source <jsonl|mongodb> \
+  --jsonl_path /path/to/train.jsonl \
   --split train \
   --subjects ECONOMICS SOCIOLOGY \
   --prompt social_science_rqcontext \
@@ -74,7 +79,7 @@ python -m src.practices.article.sft \
   --output_dir ./finetune/run_name
 ```
 
-Use `jsonl` for public or portable training data pipelines, and `mongodb` for internal or local database-backed workflows.
+For public reproduction, download the training JSONL from the Hugging Face collection first. Use `jsonl` for open and portable training runs, and keep `mongodb` only for internal or local database-backed workflows.
 
 Useful shell wrappers:
 

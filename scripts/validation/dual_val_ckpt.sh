@@ -44,7 +44,7 @@ SUBJECT="ob"
 TYPES="study"
 SEED=42
 DATA_SOURCE="jsonl"
-JSONL_PATH="/workspace/gongziqin/228/RQ/assets/unknown/120.jsonl"
+JSONL_PATH="./data/ob_120_bench.jsonl"
 DB_NAME="RQ0"
 load_db_config "${REPO_ROOT}" "${DB_NAME}" || exit 1
 CONNECTION_STRING="${MONGODB_CONNECTION_STRING}"

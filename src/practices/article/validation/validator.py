@@ -7,7 +7,6 @@ from typing import List, Dict, Any
 from src.core.schema.message import Message, MessageRole
 from src.core.validation.validator import BaseValidator
 from src.core.dataloader.base import BaseDataLoader
-from src.core.utils.output_parsing import OB_RL_LABELS
 from src.practices.article.prompts import ArticlePrompts
 
 logger = logging.getLogger(__name__)
@@ -31,11 +30,6 @@ class ArticleValidator(BaseValidator):
         max_concurrent: int = 10,
         **kwargs,
     ):
-        # OB_RL prompt: allow "Tier 1".."Tier 5" in parsing and use 5-tier labels.
-        if prompt_name == "ob_rl":
-            kwargs = dict(kwargs)
-            kwargs["allow_tier_number_format"] = True
-            kwargs["parsing_labels"] = OB_RL_LABELS
         super().__init__(
             dataloader=dataloader,
             model_config=model_config,

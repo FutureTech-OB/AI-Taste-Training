@@ -3,8 +3,8 @@ set -e
 
 # ── 数据配置 ────────────────────────────────────────────────────────────────
 # 训练前需先将数据导出为 JSONL（通过 DeepSpeedTrainer.prepare_training_data 或手动导出）
-DATA_FILE="/workspace/gongziqin/RQ/data/train.jsonl"
-# EVAL_FILE="/workspace/gongziqin/RQ/data/eval.jsonl"  # 可选
+DATA_FILE="./data/train.jsonl"
+# EVAL_FILE="./data/eval.jsonl"  # 可选
 
 # ── 模型配置 ────────────────────────────────────────────────────────────────
 MODEL_PATH="/workspace/.cache/modelscope/hub/models/Qwen/Qwen3-30B-A3B-Instruct-2507"

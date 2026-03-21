@@ -11,7 +11,6 @@ from .workers import article_fill_pdfdata_worker
 from .workers import article_parse_type_worker
 from .ob import (
     ARTICLE_EXTRACTION_PROMPT,
-    OB_RL,
     OB_RQCONTEXT_PROMPT,
     OB_RQCONTEXT_PROMPT_DUAL,
     OB_RQCONTEXT_PROMPT_JOURNAL,
@@ -27,7 +26,6 @@ ArticlePrompts.add_prompt("ob_rqcontext", OB_RQCONTEXT_PROMPT)
 ArticlePrompts.add_prompt("ob_rqcontext_dual", OB_RQCONTEXT_PROMPT_DUAL)
 ArticlePrompts.add_prompt("ob_rqcontext_simple", OB_RQCONTEXT_PROMPT_SIMPLE)
 ArticlePrompts.add_prompt("ob_rqcontext_journal", OB_RQCONTEXT_PROMPT_JOURNAL)
-ArticlePrompts.add_prompt("ob_rl", OB_RL)
 ArticlePrompts.add_prompt("social_science_rqcontext", SOCIAL_SCIENCE_RQCONTEXT_PROMPT)
 
 __all__ = [

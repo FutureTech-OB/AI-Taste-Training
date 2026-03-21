@@ -16,7 +16,7 @@ set -e
 TRAINER="deepspeed"
 
 # ── 数据源：mongodb | jsonl ─────────────────────────────────────────────────
-DATA_SOURCE="mongodb"
+DATA_SOURCE="jsonl"
 
 # ── MongoDB 配置（DATA_SOURCE=mongodb 时使用） ──────────────────────────────
 DB_NAME="RItime"
@@ -24,9 +24,9 @@ load_db_config "${REPO_ROOT}" "${DB_NAME}" || exit 1
 CONNECTION_STRING="${MONGODB_CONNECTION_STRING}"
 
 # ── JSONL 配置（DATA_SOURCE=jsonl 时使用） ──────────────────────────────────
-JSONL_PATH="./data/train.jsonl"
+JSONL_PATH="./data/ob_recent_train.jsonl"
 # 验证集：留空则用 MongoDB split=validate；指定则用该 JSONL 作 eval（与 DATA_SOURCE 无关）
-EVAL_JSONL_PATH="./assets/unknown/120.jsonl"
+EVAL_JSONL_PATH="./data/ob_120_bench.jsonl"
 
 # ── 数据过滤 ────────────────────────────────────────────────────────────────
 SPLIT="train"

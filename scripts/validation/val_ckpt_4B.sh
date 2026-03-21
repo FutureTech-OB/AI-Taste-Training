@@ -43,7 +43,7 @@ MAX_CONCURRENT="${3:-${MAX_CONCURRENT:-10}}"
 
 # 数据源配置
 DATA_SOURCE="jsonl"  # 或 "jsonl"
-JSONL_PATH="/workspace/gongziqin/228/RQ/assets/unknown/120_qwen3.jsonl"
+JSONL_PATH="./data/ob_120_bench.jsonl"
 DB_NAME="RQ0"  # MongoDB 模式时使用
 TYPES="study"
 # MongoDB 连接字符串（可选，如未提供则使用默认连接）

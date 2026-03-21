@@ -13,16 +13,6 @@ from typing import Optional, Tuple, Sequence, Dict, Any
 
 DEFAULT_LABELS = ("exceptional", "strong", "fair", "limited")
 
-# OB_RL prompt uses Tier 1–5; map to canonical labels (ob.py tier definitions).
-TIER_NUMBER_TO_LABEL = {
-    1: "exceptional",
-    2: "strong",
-    3: "fair",
-    4: "limited",
-    5: "unpublishable",
-}
-OB_RL_LABELS = ("exceptional", "strong", "fair", "limited", "unpublishable")
-
 # For deterministic tie-breaking: missing label in logp is treated as -inf.
 NEG_INF = -float("inf")
 
@@ -61,7 +51,6 @@ def logp_to_top1_top2(
 def normalize_label(
     text: Optional[str],
     labels: Sequence[str] = DEFAULT_LABELS,
-    allow_tier_number_format: bool = False,
 ) -> Optional[str]:
     """
     Normalize a text snippet to one of the allowed labels (lowercase).
@@ -85,17 +74,6 @@ def normalize_label(
     if not t:
         return None
 
-    # When OB_RL: accept "Tier 1", "tier 2", etc. and map to canonical label.
-    if allow_tier_number_format:
-        m = re.match(r"tier\s*([1-5])\s*$", t, re.IGNORECASE)
-        if m:
-            num = int(m.group(1))
-            mapped = TIER_NUMBER_TO_LABEL.get(num)
-            if mapped is not None:
-                label_set = {lab.lower(): lab.lower() for lab in labels}
-                if mapped in label_set:
-                    return mapped
-
     label_set = {lab.lower(): lab.lower() for lab in labels}
     return label_set.get(t.lower())
 
@@ -103,7 +81,6 @@ def normalize_label(
 def parse_reasoning_and_final(
     response_text: Optional[str],
     labels: Sequence[str] = DEFAULT_LABELS,
-    allow_tier_number_format: bool = False,
 ) -> Tuple[Optional[str], Optional[str]]:
     """
     Parse model output into (reasoning_content, prediction_label).
@@ -135,7 +112,7 @@ def parse_reasoning_and_final(
 
     if m_final_tag:
         final_raw = m_final_tag.group(1).strip()
-        pred = normalize_label(final_raw, labels=labels, allow_tier_number_format=allow_tier_number_format)
+        pred = normalize_label(final_raw, labels=labels)
         return reasoning, pred
 
     # Otherwise: last non-empty line is the final answer word
@@ -144,7 +121,7 @@ def parse_reasoning_and_final(
         return None, None
 
     last = lines[-1]
-    pred = normalize_label(last, labels=labels, allow_tier_number_format=allow_tier_number_format)
+    pred = normalize_label(last, labels=labels)
     if reasoning is None:
         reasoning = "\n".join(lines[:-1]).strip() or None
 

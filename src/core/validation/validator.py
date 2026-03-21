@@ -19,7 +19,6 @@ from src.core.utils.output_parsing import (
     normalize_label,
     logp_to_top1_top2,
     DEFAULT_LABELS,
-    OB_RL_LABELS,
 )
 from src.core.dataloader.base import BaseDataLoader
 from src.core.schema.filter import BaseFilter
@@ -254,14 +253,10 @@ class BaseValidator(ABC):
                     await self._write_distill_record(messages, result, output)
                 else:
                     # 文本模式：支持 avg_n 次采样后多数投票（例如 thinking model 的 avg8）
-                    allow_tier = self.kwargs.get("allow_tier_number_format", False)
-                    labels = self.kwargs.get("parsing_labels")
-                    if labels is None:
-                        labels = OB_RL_LABELS if allow_tier else DEFAULT_LABELS
+                    labels = self.kwargs.get("parsing_labels") or DEFAULT_LABELS
                     gt = normalize_label(
                         output.get("ground_truth"),
                         labels=labels,
-                        allow_tier_number_format=allow_tier,
                     )
                     model_outcome = self._get_val_outcome(item)
                     existing_preds: List[Optional[str]] = (
@@ -289,7 +284,6 @@ class BaseValidator(ABC):
                             _, pred = parse_reasoning_and_final(
                                 rt,
                                 labels=labels,
-                                allow_tier_number_format=allow_tier,
                             )
                             if pred is None:
                                 logger.warning(
@@ -329,7 +323,6 @@ class BaseValidator(ABC):
                             reasoning_content, pred = parse_reasoning_and_final(
                                 rt,
                                 labels=labels,
-                                allow_tier_number_format=allow_tier,
                             )
                             if pred is None:
                                 logger.warning(

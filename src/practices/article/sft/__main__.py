@@ -3,16 +3,6 @@ Article SFT 训练 CLI 入口
 
 调用路径: article → dataloader → messages → trainer
 
-# OpenAI + MongoDB
-    python -m src.practices.article.sft \\
-        --trainer openai \\
-        --model gpt-4o-mini-2024-07-18 \\
-        --data_source mongodb --db_name RQ0 --split train \\
-        --prompt ob_rqcontext_simple --subjects ob --entry rq_with_context \\
-        --batch_size 32 --epochs 5 --lr_mult 1.0 \\
-        --suffix ob-ob_rqcontext_simple \\
-        --output_dir ./finetune/ob_rqcontext_simple_ob
-
 # OpenAI + JSONL
     python -m src.practices.article.sft \\
         --trainer openai \\
@@ -21,16 +11,6 @@ Article SFT 训练 CLI 入口
         --prompt ob_rqcontext_simple --entry rq_with_context \\
         --batch_size 32 --epochs 5 \\
         --output_dir ./finetune/ob_rqcontext_simple_ob
-
-# DeepSpeed + MongoDB
-    python -m src.practices.article.sft \\
-        --trainer deepspeed \\
-        --model_path /path/to/Qwen3-30B \\
-        --data_source mongodb --db_name RQ0 --split train \\
-        --prompt ob_rqcontext_simple --subjects ob --entry rq_with_context \\
-        --batch_size 32 --per_device_batch_size 1 --epochs 5 --lr 1e-4 \\
-        --deepspeed_config assets/ds_config_zero3.json \\
-        --output_dir ./finetune/ob_rqcontext_simple_ob_ds
 
 # DeepSpeed + JSONL
     python -m src.practices.article.sft \\
@@ -73,7 +53,7 @@ def parse_args():
 
     # ── 数据源（参考 validation 实现） ─────────────────────────────────
     parser.add_argument(
-        "--data_source", default="mongodb", choices=["mongodb", "jsonl"],
+        "--data_source", default="jsonl", choices=["mongodb", "jsonl"],
         help="数据来源",
     )
     parser.add_argument("--jsonl_path", default=None, help="训练集 JSONL 文件路径（data_source=jsonl 时必填）")

@@ -29,7 +29,7 @@ def parse_args():
     parser.add_argument("--subjects", nargs="*", default=None, help="学科过滤列表")
     parser.add_argument("--types", nargs="*", default=None, help="文章类型过滤列表")
     parser.add_argument("--split", default="validate", help="数据集划分 (train/validate/test)")
-    parser.add_argument("--data_source", choices=["jsonl", "mongodb"], default="mongodb")
+    parser.add_argument("--data_source", choices=["jsonl", "mongodb"], default="jsonl")
     parser.add_argument("--jsonl_path", default=None, help="JSONL 文件路径（data_source=jsonl 时必填）")
     parser.add_argument("--db_name", default="RQ0", help="MongoDB 数据库名称")
     parser.add_argument("--connection_string", default=None, help="MongoDB 连接字符串")
