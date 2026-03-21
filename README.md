@@ -2,6 +2,14 @@
 
 This repository contains a reusable training and validation framework for research-article classification and prompt-based evaluation. The framework supports both API-based fine-tuning and local DeepSpeed training, with a shared data transformation layer and validation pipeline.
 
+## Open Resources
+
+Public model weights and training datasets are collected here:
+
+- Hugging Face collection: `https://huggingface.co/collections/K1mG0ng/ai-taste-scientific`
+
+Use that collection as the primary entry point for downloading open model weights and training data associated with this repository.
+
 ## Scope
 
 The open-source-ready part of the codebase is primarily:
