@@ -5,7 +5,7 @@ This repository contains a reusable training and validation framework for resear
 ## Open Resources
 
 - Hugging Face collection for open model weights and training data:
-  `https://huggingface.co/collections/K1mG0ng/ai-taste-scientific`
+  [Hugging Face collection](https://huggingface.co/collections/K1mG0ng/ai-taste-scientific)
 - OpenAI fine-tuned models used in this project are access-only API models, not open weights.
 - Because the data files are too large for direct repository distribution, reproducibility should start by downloading the corresponding JSONL files from the Hugging Face collection.
 - Public data release is centered on JSONL. MongoDB support remains available for internal or local deployment workflows.
