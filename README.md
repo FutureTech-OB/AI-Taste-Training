@@ -63,8 +63,9 @@ Run SFT through:
 ```bash
 python -m src.practices.article.sft \
   --trainer deepspeed \
-  --data_source mongodb \
+  --data_source <mongodb|jsonl> \
   --db_name <db_name> \
+  --data_file /path/to/train.jsonl \
   --split train \
   --subjects ECONOMICS SOCIOLOGY \
   --prompt social_science_rqcontext \
@@ -73,6 +74,8 @@ python -m src.practices.article.sft \
   --model_path /path/to/base-model \
   --output_dir ./finetune/run_name
 ```
+
+Use `mongodb` for internal or local database-backed workflows, and prefer `jsonl` for public or portable training data pipelines.
 
 Useful shell wrappers:
 
