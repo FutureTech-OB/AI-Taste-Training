@@ -10,6 +10,10 @@ Public model weights and training datasets are collected here:
 
 Use that collection as the primary entry point for downloading open model weights and training data associated with this repository.
 
+OpenAI fine-tuned models used in this project are access-based API models rather than open weights. They can be referenced by model ID in your local config, but they are not redistributed through this repository or the Hugging Face collection.
+
+For open release and reproducibility, the preferred public data format is JSONL. The codebase still supports MongoDB-backed loading for internal or local deployment workflows, but public dataset distribution is intended to happen through JSONL exports rather than direct database access.
+
 ## Scope
 
 The open-source-ready part of the codebase is primarily:
