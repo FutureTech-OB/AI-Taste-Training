@@ -34,7 +34,7 @@ def _load_db_config() -> Tuple[str, str]:
     assets = Path("assets")
     cfg_path = assets / "database.toml"
     default_db = "RIOB"
-    default_conn = f"mongodb://root:password@166.111.96.30:27027/{default_db}?authSource=admin"
+    default_conn = f"mongodb://username:password@host:27017/{default_db}?authSource=admin"
     if not cfg_path.exists():
         return default_conn, default_db
     try:

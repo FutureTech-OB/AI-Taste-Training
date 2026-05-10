@@ -24,7 +24,7 @@ def load_database_config() -> Tuple[str, str]:
     """从配置文件加载数据库配置"""
     config_path = project_root / 'assets' / 'database.toml'
     default_db_name = 'RItest'
-    default_connection_string = f"mongodb://root:password@166.111.96.30:27027/{default_db_name}?authSource=admin"
+    default_connection_string = f"mongodb://username:password@host:27017/{default_db_name}?authSource=admin"
     
     if not config_path.exists():
         return default_connection_string, default_db_name
@@ -95,7 +95,7 @@ def calculate_dynamic_factor(
             left = mid
         elif allocated - target_count > tolerance:
             right = mid
-            else:
+        else:
             best_factor = mid
             break
         best_factor = mid
@@ -204,7 +204,7 @@ async def allocate_articles_by_year(
     if max_possible < remaining_quota:
         # 不够，直接用 1.0，能拿多少拿多少
         best_decay_factor = 1.0
-        else:
+    else:
         # 够，用二分搜索找到合适的 decay_factor
         left, right = 0.5, 1.0
         best_decay_factor = 0.9
@@ -451,7 +451,7 @@ async def get_rank_statistics(subject: str) -> Dict[str, Dict[str, Any]]:
         article_count = result['article_count']
 
         if rank not in rank_stats:
-        rank_stats[rank] = {
+            rank_stats[rank] = {
                 'journals': [],
                 'total_articles': 0,
                 'journal_count': 0
@@ -535,25 +535,25 @@ async def filter_journals(
         print(f"处理学科: {current_subject}")
         print(f"{'='*80}\n")
     
-    # 获取统计信息
-    print("正在获取统计信息...")
+        # 获取统计信息
+        print("正在获取统计信息...")
         rank_stats = await get_rank_statistics(current_subject)
-    
-    if 'exceptional' not in rank_stats:
+
+        if 'exceptional' not in rank_stats:
             print(f"错误: 学科 {current_subject} 未找到 exceptional rank，跳过")
             continue
-    
-    exceptional_count = rank_stats['exceptional']['journal_count']
-    print(f"\n基准: exceptional rank 有 {exceptional_count} 个期刊")
-    print("\n各 rank 统计信息:")
-    print(f"  {'Rank':<15} {'期刊数':<10} {'文章总数':<12} {'平均每期刊':<15}")
-    print(f"  {'-'*15} {'-'*10} {'-'*12} {'-'*15}")
-    
-    for rank in ['exceptional', 'strong', 'fair', 'limited']:
-        if rank in rank_stats:
-            stats = rank_stats[rank]
-            print(f"  {rank:<15} {stats['journal_count']:<10} {stats['total_articles']:<12} {stats['avg_articles_per_journal']:<15.2f}")
-    
+
+        exceptional_count = rank_stats['exceptional']['journal_count']
+        print(f"\n基准: exceptional rank 有 {exceptional_count} 个期刊")
+        print("\n各 rank 统计信息:")
+        print(f"  {'Rank':<15} {'期刊数':<10} {'文章总数':<12} {'平均每期刊':<15}")
+        print(f"  {'-'*15} {'-'*10} {'-'*12} {'-'*15}")
+
+        for rank in ['exceptional', 'strong', 'fair', 'limited']:
+            if rank in rank_stats:
+                stats = rank_stats[rank]
+                print(f"  {rank:<15} {stats['journal_count']:<10} {stats['total_articles']:<12} {stats['avg_articles_per_journal']:<15.2f}")
+
         # 确定当前学科的目标文章数量
         current_target_articles = target_articles
         if not current_target_articles and subject_targets_lookup and current_subject in subject_targets_lookup:
@@ -652,7 +652,7 @@ async def filter_journals(
                             year_diff = current_year - year
                             if year == current_year:
                                 year_weights[year] = 1.0
-    else:
+                            else:
                                 year_weights[year] = decay_factor ** year_diff
                         
                         total_weight = sum(year_weights.values())
@@ -762,18 +762,18 @@ async def filter_journals(
                         print(f"        {year}: 原始={info['original']} 篇, quota={info['quota']} 篇, 实际选中={info['selected']} 篇")
     
         # 计算统计影响（当前学科）
-    print("\n统计影响:")
-        
+        print("\n统计影响:")
+
         # 统计该学科所有 type='study' 的文章（包括没有journal的）
         total_study_in_subject = await Article.find({
             "subject": current_subject,
             "type": "study"
         }).count()
-        
+
         # 统计该学科有journal且在目标rank的文章
         total_articles = 0
         kept_articles = 0
-        
+
         for rank in ['exceptional', 'strong', 'fair', 'limited']:
             if rank not in rank_stats:
                 continue
@@ -781,7 +781,7 @@ async def filter_journals(
             total_articles += rank_total
             if rank in selected_article_ids:
                 kept_articles += len(selected_article_ids[rank])
-        
+
         print(f"  该学科所有type='study'的文章数: {total_study_in_subject}")
         print(f"  有journal且在目标rank的文章数: {total_articles}")
         print(f"  保留文章数: {kept_articles}")
@@ -795,13 +795,13 @@ async def filter_journals(
         # 累计到全局统计
         global_total_articles += total_articles
         global_kept_articles += kept_articles
-    
-    # 执行筛选
-    if dry_run:
-        print("\n[试运行模式] 不会实际更新数据库")
-        print("使用 --no-dry-run 参数来实际执行筛选")
-    else:
-        print("\n开始更新数据库...")
+
+        # 执行筛选
+        if dry_run:
+            print("\n[试运行模式] 不会实际更新数据库")
+            print("使用 --no-dry-run 参数来实际执行筛选")
+        else:
+            print("\n开始更新数据库...")
             kept_count = 0
             aborted_count = 0
             

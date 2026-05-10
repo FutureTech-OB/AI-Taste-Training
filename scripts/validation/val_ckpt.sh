@@ -14,7 +14,7 @@ set -e
 
 # ========== 配置参数（所有参数写死在这里） ==========
 # Checkpoint 路径
-CHECKPOINT_PATH="/workspace/gongziqin/AgentCPM-Explore/src/AgentRL-mcp/output/RIOB/checkpoint-210-hf"
+CHECKPOINT_PATH="./models/checkpoint-210-hf"
 
 # 服务器配置
 PORT=8000

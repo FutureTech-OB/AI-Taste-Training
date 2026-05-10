@@ -12,7 +12,7 @@ source "${REPO_ROOT}/scripts/common/load_db_config.sh"
 set -e
 
 # ========== Checkpoint 与 SGLang ==========
-CHECKPOINT_PATH="/workspace/gongziqin/228/RQ/finetune/ob_rqcontext_ob_30B_/checkpoint-103"
+CHECKPOINT_PATH="./finetune/ob_rqcontext_ob_30B_/checkpoint-103"
 PORT=8000
 HOST="0.0.0.0"
 TP_SIZE=2

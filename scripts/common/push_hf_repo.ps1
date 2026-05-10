@@ -1,13 +1,13 @@
 param(
     [string]$RepoUrl = "https://huggingface.co/K1mG0ng/AI-taste-ob-4B",
 
-    [string]$SourceDir = "C:\Users\45391\codes\RQ\OBmodels\qwen3-4b",
+    [string]$SourceDir = "./models/qwen3-4b",
 
     [string]$Branch = "main",
 
     [string]$CommitMessage = "Add Qwen3 4B model files",
 
-    [string]$WorkRoot = "C:\Users\45391\codes\RQ\tmp",
+    [string]$WorkRoot = "./tmp",
 
     [string[]]$LfsPatterns = @("*.safetensors", "*.bin", "tokenizer.json"),
 

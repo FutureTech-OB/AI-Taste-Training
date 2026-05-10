@@ -4,7 +4,7 @@
 set -e
 
 # 配置
-CHECKPOINT_PATH="${1:-/workspace/gongziqin/228/RQ/OB_models/ob_rqcontext_ob_30B/checkpoint-484}"
+CHECKPOINT_PATH="${1:-./models/checkpoint-484}"
 PORT="${2:-8000}"
 HOST="${3:-0.0.0.0}"
 

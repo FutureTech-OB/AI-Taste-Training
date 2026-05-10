@@ -14,7 +14,7 @@ set -e
 
 # ========== 配置参数（所有参数写死在这里） ==========
 # Checkpoint 路径
-CHECKPOINT_PATH="/workspace/gongziqin/228/RQ/OB_models/30Bep2/qwen3-30b"
+CHECKPOINT_PATH="./models/qwen3-30b"
 
 # 服务器配置
 PORT=8000

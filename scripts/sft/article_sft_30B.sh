@@ -56,11 +56,11 @@ OAI_N_CHECKPOINTS=3
 # ── DeepSpeed 专有配置 ──────────────────────────────────────────────────────
 # 只用 7 卡时排除 GPU 1（例如留一张做推理），用下面这行；用满 8 卡则注释掉，并把上面 BATCH_SIZE 改为 32
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
-MODEL_PATH="/workspace/gongziqin/228/RQ/finetune/ob_rqcontext_ob_30B_/checkpoint-226"
+MODEL_PATH="./finetune/ob_rqcontext_ob_30B_/checkpoint-226"
 PER_DEVICE_BATCH_SIZE=4   # 7 卡时有效 batch=BATCH_SIZE=28（4×7×1）；8 卡时若 BATCH_SIZE=32 则 4×8×1=32
 LR=1e-5
 MAX_LENGTH=2560
-DS_CONFIG="/workspace/gongziqin/228/RQ/assets/ds_config_zero3.json"
+DS_CONFIG="./assets_example/ds_config_zero3.json"
 MASTER_PORT=28500
 SAVE_STRATEGY="epoch"
 SAVE_STEPS=100
@@ -68,7 +68,7 @@ SAVE_STEPS=100
 SAVE_ONLY_MODEL=""   # 设为非空则开启，例如: SAVE_ONLY_MODEL="1"
 
 # ── 环境 ────────────────────────────────────────────────────────────────────
-export PYTHONPATH="/workspace/gongziqin/228/RQ:${PYTHONPATH}"
+export PYTHONPATH="${PWD}:${PYTHONPATH}"
 mkdir -p "${OUTPUT_DIR}"
 
 # ── 公共参数 ─────────────────────────────────────────────────────────────────

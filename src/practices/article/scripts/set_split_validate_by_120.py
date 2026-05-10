@@ -26,7 +26,7 @@ def load_database_config() -> Tuple[str, str]:
     config_path = project_root / "assets" / "database.toml"
     default_db_name = "RIOB"
     default_connection_string_tpl = (
-        "mongodb://root:password@166.111.96.30:27027/{db}?authSource=admin"
+        "mongodb://username:password@host:27017/{db}?authSource=admin"
     )
 
     if not config_path.exists():
@@ -41,7 +41,7 @@ def load_database_config() -> Tuple[str, str]:
         if conn_str:
             connection_string = conn_str.replace("<DBNAME>", db_name) if "<DBNAME>" in conn_str else conn_str
         else:
-            connection_string = f"mongodb://root:password@166.111.96.30:27027/{db_name}?authSource=admin"
+            connection_string = f"mongodb://username:password@host:27017/{db_name}?authSource=admin"
         return connection_string, db_name
     except Exception as e:
         print(f"警告: 读取配置失败: {e}，使用默认配置")

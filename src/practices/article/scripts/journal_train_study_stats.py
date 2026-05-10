@@ -52,5 +52,5 @@ def _parse_args():
 
 if __name__ == "__main__":
     args = _parse_args()
-    conn = args.connection_string or "mongodb://root:password@166.111.96.30:27027/?authSource=admin"
+    conn = args.connection_string or "mongodb://username:password@host:27017/?authSource=admin"
     asyncio.run(main(connection_string=conn, db_name=args.db_name))

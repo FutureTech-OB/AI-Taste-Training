@@ -7,7 +7,7 @@ DATA_FILE="./data/train.jsonl"
 # EVAL_FILE="./data/eval.jsonl"  # 可选
 
 # ── 模型配置 ────────────────────────────────────────────────────────────────
-MODEL_PATH="/workspace/.cache/modelscope/hub/models/Qwen/Qwen3-30B-A3B-Instruct-2507"
+MODEL_PATH="./models/Qwen3-30B-A3B-Instruct-2507"
 
 # ── 训练配置 ────────────────────────────────────────────────────────────────
 OUT_DIR="./finetune/run_ds"
@@ -20,7 +20,7 @@ NUM_GPUS=8
 
 mkdir -p "${OUT_DIR}"
 
-export PYTHONPATH="/workspace/gongziqin/228/RQ:${PYTHONPATH}"
+export PYTHONPATH="${PWD}:${PYTHONPATH}"
 MASTER_PORT=28500
 
 deepspeed --num_gpus ${NUM_GPUS} --master_port ${MASTER_PORT} \
@@ -34,7 +34,7 @@ deepspeed --num_gpus ${NUM_GPUS} --master_port ${MASTER_PORT} \
   --max_length 4096 \
   --save_steps 100 \
   --gradient_checkpointing \
-  --deepspeed /workspace/gongziqin/228/RQ/assets/ds_config_zero3.json \
+  --deepspeed ./assets_example/ds_config_zero3.json \
   --output_dir "${OUT_DIR}"
 
 # LoRA 示例（去掉注释即可）：

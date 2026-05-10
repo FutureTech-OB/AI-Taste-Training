@@ -52,18 +52,18 @@ BALANCE_STRATEGY="year_desc"
 # ── DeepSpeed 专有配置 ──────────────────────────────────────────────────────
 # 只用 7 卡时排除 GPU 1，取消下面注释并设上面 BATCH_SIZE=28；用满 8 卡则保持注释
 export CUDA_VISIBLE_DEVICES=0,2,3,4,5,6,7
-MODEL_PATH="/workspace/.cache/modelscope/hub/models/Qwen/Qwen3-4B-Instruct-2507"
+MODEL_PATH="./models/Qwen3-4B-Instruct-2507"
 PER_DEVICE_BATCH_SIZE=4   # 8 卡时有效 batch=32（4×8×1）；7 卡时 BATCH_SIZE=28
 LR=1e-4                    # 4B 参数量少，可用略大学习率
 MAX_LENGTH=2560             # RQ 文本通常 <1024 token，无需 2048
-DS_CONFIG="/workspace/gongziqin/228/RQ/assets/ds_config_zero2.json"
+DS_CONFIG="./assets_example/ds_config_zero2.json"
 MASTER_PORT=28501           # 与 30B 脚本错开端口
 # 存盘：epoch=每 epoch 结束存一次；steps=按 save_steps 步数存
 SAVE_STRATEGY="epoch"
 SAVE_STEPS=100              # save_strategy=steps 时生效
 
 # ── 环境 ────────────────────────────────────────────────────────────────────
-export PYTHONPATH="/workspace/gongziqin/228/RQ:${PYTHONPATH}"
+export PYTHONPATH="${PWD}:${PYTHONPATH}"
 mkdir -p "${OUTPUT_DIR}"
 
 # ── 公共参数 ─────────────────────────────────────────────────────────────────

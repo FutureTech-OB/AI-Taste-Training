@@ -46,7 +46,7 @@ if str(project_root) not in sys.path:
 def load_database_config(db_name: str) -> Tuple[str, str]:
     config_path = project_root / "assets" / "database.toml"
     default_connection_string_tpl = (
-        "mongodb://root:password@166.111.96.30:27027/{db}?authSource=admin"
+        "mongodb://username:password@host:27017/{db}?authSource=admin"
     )
 
     if not config_path.exists():

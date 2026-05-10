@@ -29,7 +29,7 @@ def load_database_config() -> Tuple[str, str]:
     
     # 默认值
     default_db_name = 'RItest'
-    default_connection_string = f"mongodb://root:password@166.111.96.30:27027/{default_db_name}?authSource=admin"
+    default_connection_string = f"mongodb://username:password@host:27017/{default_db_name}?authSource=admin"
     
     # 读取配置文件
     if not config_path.exists():
@@ -57,7 +57,7 @@ def load_database_config() -> Tuple[str, str]:
                 connection_string = conn_str
         else:
             # 如果没有配置连接字符串，使用默认格式
-            connection_string = f"mongodb://root:password@166.111.96.30:27027/{db_name}?authSource=admin"
+            connection_string = f"mongodb://username:password@host:27017/{db_name}?authSource=admin"
         
         return connection_string, db_name
     
