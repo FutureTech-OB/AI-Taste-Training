@@ -1,0 +1,32 @@
+[providers.openai.openrouter]
+api_key = "YOUR_OPENROUTER_API_KEY"
+base_url = "https://openrouter.ai/api/v1"
+
+[providers.openai.official]
+api_key = "YOUR_OPENAI_API_KEY"
+base_url = "https://api.openai.com/v1"
+
+[providers.openai.google]
+api_key = "YOUR_GOOGLE_API_KEY"
+base_url = "https://generativelanguage.googleapis.com/v1beta/openai/"
+
+[providers.openai.moonshotai]
+api_key = "YOUR_MOONSHOT_API_KEY"
+base_url = "https://api.moonshot.ai/v1"
+
+[providers.openai.deepseek]
+api_key = "YOUR_DEEPSEEK_API_KEY"
+base_url = "https://api.deepseek.com/v1"
+
+[providers.openai.seed]
+api_key = "YOUR_SEED_API_KEY"
+base_url = "https://ark.cn-beijing.volces.com/api/v3"
+
+[providers.zai.official]
+api_key = "YOUR_ZAI_API_KEY"
+base_url = "https://open.bigmodel.cn/api/paas/v4"
+
+[providers.vertex.official]
+project_id = "YOUR_VERTEX_PROJECT_ID"
+location = "us-central1"
+credentials_path = "/path/to/vertex-service-account.json"

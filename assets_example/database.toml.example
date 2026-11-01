@@ -1,0 +1,3 @@
+[default]
+connection_string = "mongodb://username:password@host:27017/<DBNAME>?authSource=admin"
+db_name = "RQ"
